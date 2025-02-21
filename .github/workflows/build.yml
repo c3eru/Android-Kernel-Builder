@@ -552,3 +552,27 @@ jobs:
           path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: "📦 Clone AnyKernel3"
+        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
+        run: |
+          git clone https://github.com/topnotchfreaks/AnyKernel3.git master --depth=1
+
+      - name: "📦 Copy Kernel Image to AnyKernel3"
+        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
+        run: |
+          cp ${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image AnyKernel3/Image
+      
+      - name: "📦 Pack Kernel into AnyKernel3 ZIP"
+        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}/AnyKernel3
+        run: |
+          zip -r5 ${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip . -x .git/*
+      
+      - name: "📤 Upload AnyKernel3 ZIP"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip"
+          path: ./${{ env.kernelDir }}/${{ env.kernelName }}/AnyKernel3/${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip
+          if-no-files-found: error
+          retention-days: 7
+      
