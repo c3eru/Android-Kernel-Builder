@@ -7,6 +7,7 @@
       "device": "gki"
     },
     "withKernelSU": true,
+    "withKernelSUSFS": true,
     "toolchains": [
       {
         "name": "gas",
