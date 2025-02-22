@@ -33,7 +33,7 @@ on:
         description: "Custom kernel source URL"
         required: true
         type: string
-        default: "https://github.com/topnotchfreaks/kernel_msm-5.15" # Default kernel source URL
+        default: "https://github.com/c3eru/GKI_COMMON" # Default kernel source URL
       kernelBranch:
         description: "kernel branch (default if empty)"
         required: false
@@ -563,7 +563,7 @@ jobs:
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
           # Clone AnyKernel3
-          git clone https://github.com/topnotchfreaks/AnyKernel3.git --depth=1
+          git clone https://github.com/c3eru/sapp_anykernel3 -b main --depth=1
           
           # Verify the kernel image path
           KERNEL_IMAGE_PATH="../${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image"
