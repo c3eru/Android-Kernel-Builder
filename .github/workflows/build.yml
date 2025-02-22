@@ -359,6 +359,7 @@ jobs:
           ARCH: ${{ steps.generate-args.outputs.ARCH }}
           DEFCONFIG: ./${{ env.kernelName }}/arch/${{ env.ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           SFS_BRANCH: ${{ env.susfsBranch }}
+        if: ${{ env.withKernelSUSFS == 'true' }}
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
           set -ex  # Exit on error and print commands
