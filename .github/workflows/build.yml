@@ -563,7 +563,7 @@ jobs:
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
           # Clone AnyKernel3
-          git clone https://github.com/c3eru/sapp_anykernel3 -b main --depth=1
+          git clone ${CREDENTIALS}/c3eru/sapp_anykernel3 -b main --depth=1
           
           # Verify the kernel image path
           KERNEL_IMAGE_PATH="../${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image"
