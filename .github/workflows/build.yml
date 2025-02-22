@@ -559,7 +559,7 @@ jobs:
       - name: "📥 Download Kernel Image"
         uses: actions/download-artifact@v4
         with:
-          name: kernel-image
+          name: "${{ env.kernelDevice }}_${{ env.kernelName }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}"
           path: ./downloaded-image
 
       - name: "📦 Clone AnyKernel3"
