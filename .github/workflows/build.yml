@@ -536,6 +536,11 @@ jobs:
           path: ${{ github.workspace }}/.ccache
           key: ${{ runner.os }}-ccache-${{ github.sha }}
         
+      - name: "📦 Show kernel Image Directory"
+        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
+        run: |
+          ls -l ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/
+
       - name: "📦 Pack Anykernel3"
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
