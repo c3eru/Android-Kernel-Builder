@@ -556,6 +556,12 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      - name: "📥 Download Kernel Image"
+        uses: actions/download-artifact@v4
+        with:
+          name: kernel-image
+          path: ./downloaded-image
+
       - name: "📦 Clone AnyKernel3"
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
@@ -564,7 +570,7 @@ jobs:
       - name: "📦 Copy Kernel Image to AnyKernel3"
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
-          cp ${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image AnyKernel3/Image
+          cp ./downloaded-image/Image AnyKernel3/Image
       
       - name: "📦 Pack Kernel into AnyKernel3 ZIP"
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}/AnyKernel3
