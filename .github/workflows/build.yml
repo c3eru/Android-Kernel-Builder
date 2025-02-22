@@ -560,13 +560,15 @@ jobs:
           cp "$KERNEL_IMAGE_PATH" AnyKernel3/Image
         
           # Pack the kernel
-          zip -r5 ${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip AnyKernel3 -x .git/*
+          ZIP_NAME="${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip"
+          zip -r5 "$ZIP_NAME" AnyKernel3 -x .git/*
+
+          # Set the ZIP file path as an environment variable for the next step
+          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
       
-      - name: "📤 Upload AnyKernel3 ZIP"
-        uses: actions/upload-artifact@v4
+      - name: "⬆️ Upload Kernel Artifact"
+        uses: actions/upload-artifact@v3
         with:
-          name: "${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip"
-          path: ./${{ env.kernelDir }}/${{ env.kernelName }}/AnyKernel3/${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip
-          if-no-files-found: error
-          retention-days: 7
-      
+          name: ${{ env.kernelBranch }}_${{ env.BUILD_TIME }}_Anykernel3.zip
+          path: ./${{ env.kernelDir }}/${{ env.kernelName }}/${{ env.ZIP_NAME }}
+          if-no-files-found: ignore
