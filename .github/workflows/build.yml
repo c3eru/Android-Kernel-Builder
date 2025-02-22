@@ -548,19 +548,15 @@ jobs:
           name: build-logs
           path: logs/
         
-      - name: "📦 Clone AnyKernel3"
+      - name: "📦 Pack Anykernel3"
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
           git clone https://github.com/topnotchfreaks/AnyKernel3.git master --depth=1
-
-      - name: "📦 Copy Kernel Image to AnyKernel3"
-        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
-        run: |
+          
+          # copy Image to AnyKernel3
           cp ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image AnyKernel3/Image
-      
-      - name: "📦 Pack Kernel into AnyKernel3 ZIP"
-        working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}/AnyKernel3
-        run: |
+          
+          # pack the kernel
           zip -r5 ${{ env.kernelName }}_${{ env.kernelDevice }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip . -x .git/*
       
       - name: "📤 Upload AnyKernel3 ZIP"
