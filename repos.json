@@ -1,19 +1,19 @@
 [
   {
     "kernelSource": {
-      "name": "msm-5.15",
-      "repo": "https://github.com/topnotchfreaks/kernel_msm-5.15",
-      "branch": "main",
-      "device": "gki"
+      "name": "KERNEL",
+      "repo": "https://android.googlesource.com/kernel/common",
+      "branch": "android13-5.15-2024-05",
+      "device": "GKI"
     },
     "toolchains": [
       {
-        "name": "gas",
+        "name": "TOOLCHAIN",
         "repo": "https://android.googlesource.com/platform/prebuilts/gas/linux-x86",
         "branch": "master"
       },
       {
-        "name": "clang",
+        "name": "CLANG",
         "url": "https://github.com/greenforce-project/greenforce_clang/releases/download/16022025/greenforce-clang-21.0.0git-16022025.tar.gz"
       }
     ],

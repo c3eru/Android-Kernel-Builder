@@ -33,12 +33,12 @@ on:
         description: "Custom kernel source URL"
         required: true
         type: string
-        default: "https://github.com/topnotchfreaks/kernel_msm-5.15" # Default kernel source URL
+        default: "https://android.googlesource.com/kernel/common" # Default kernel source URL
       kernelBranch:
         description: "kernel branch (default if empty)"
         required: false
         type: string
-        default: "android13-5.15"
+        default: "android13-5.15-2024-05"
       localVersion:
         description: "Custom localversion name (e.g., -mybuild)"
         required: false
@@ -563,7 +563,7 @@ jobs:
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
           # Clone AnyKernel3
-          git clone https://github.com/topnotchfreaks/AnyKernel3.git --depth=1
+          git clone https://github.com/topnotchfreaks/AnyKernel3.git --depth=1 ANYKERNEL
           
           # Verify the kernel image path
           KERNEL_IMAGE_PATH="../${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image"
@@ -579,12 +579,12 @@ jobs:
             fi
           fi
           
-          # Copy the kernel image to AnyKernel3
-          cp "$KERNEL_IMAGE_PATH" AnyKernel3/Image
+          # Copy the kernel image to ANYKERNEL
+          cp "$KERNEL_IMAGE_PATH" ANYKERNEL/Image
           
           # Pack the kernel
           ZIP_NAME="${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip"
-          zip -r5 "$ZIP_NAME" AnyKernel3 -x .git/*
+          zip -r5 "$ZIP_NAME" ANYKERNEL -x .git/*
   
           # Set the ZIP file path as an environment variable for the next step
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
@@ -592,7 +592,7 @@ jobs:
       - name: "⬆️ Upload Kernel Artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.kernelBranch }}_${{ env.BUILD_TIME }}_Anykernel3.zip
+          name: ${{ env.kernelBranch }}_${{ env.BUILD_TIME }}_ANYKERNEL.zip
           path: ./${{ env.kernelDir }}/${{ env.kernelName }}/${{ env.ZIP_NAME }}
           if-no-files-found: ignore
           retention-days: 7
