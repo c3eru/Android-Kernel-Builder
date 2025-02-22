@@ -7,7 +7,10 @@
       "device": "gki"
     },
     "withKernelSU": true,
-    "withKernelSUSFS": true,
+    "withKernelSUSFS": {
+      "enable": true,
+      "branches": "gki-android13-5.15"
+    },
     "toolchains": [
       {
         "name": "gas",
