@@ -3,6 +3,7 @@ name: "Build kernels"
 env:
   CONFIGURATION: "repos.json"
   OUT_DIR: "out"
+  CREDENTIALS: ${{ secrets.CREDENTIALS }}
 
 on:
   workflow_dispatch:
@@ -99,6 +100,10 @@ jobs:
 
       - name: "⭐ Install prerequisites"
         run: |
+          git config --global user.email "yyprjkt@gmail.com"
+          git config --global user.name "c3eru" -y
+          echo "${CREDENTIALS}" > ~/.git-credentials
+          git config --global credential.helper store --file=~/.git-credentials
           sudo apt-get update
           sudo apt-get install -y build-essential bc curl flex cpio ccache rsync git zip dwarves libelf-dev ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python3 libarchive-tools clang lld llvm llvm-dev
 
