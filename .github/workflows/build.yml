@@ -562,6 +562,10 @@ jobs:
           name: "${{ env.kernelDevice }}_${{ env.kernelName }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}"
           path: ./downloaded-image
 
+      - name: "📦 Extract Downloaded Artifact ZIP"
+        run: |
+          unzip ./downloaded-image/*.zip -d ./downloaded-image/
+
       - name: "📦 Clone AnyKernel3"
         working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
         run: |
