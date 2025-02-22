@@ -14,7 +14,7 @@
       },
       {
         "name": "clang",
-        "url": "https://github.com/ZyCromerZ/Clang/releases/download/21.0.0git-20250221-release/Clang-21.0.0git-20250221.tar.gz"
+        "url": "https://github.com/greenforce-project/greenforce_clang/releases/download/16022025/greenforce-clang-21.0.0git-16022025.tar.gz"
       }
     ],
     "params": {

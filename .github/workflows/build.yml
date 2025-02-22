@@ -162,13 +162,13 @@ jobs:
               done
             done  
         
-      - name: "🛠 Set ZyC Clang as Default"
+      - name: "🛠 Set Greenforce Clang as Default"
         run: |
           export CLANG_PATH="${{ github.workspace }}/clang/bin"
           if [ -d "$CLANG_PATH" ]; then
-            echo "✅ ZyC Clang found in $CLANG_PATH"
+            echo "✅ Greenforce Clang found in $CLANG_PATH"
           else
-            echo "❌ ZyC Clang NOT found, build might fail!"
+            echo "❌ Greenforce Clang NOT found, build might fail!"
             exit 1
           fi
     
