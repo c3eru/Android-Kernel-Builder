@@ -38,12 +38,12 @@ on:
         description: "kernel branch (default if empty)"
         required: false
         type: string
-        default: "android13-5.15"
+        default: "upstream"
       localVersion:
         description: "Custom localversion name (e.g., -mybuild)"
         required: false
         type: string
-        default: ""  # Default is empty (no suffix)
+        default: "-perf"  # Default is empty (no suffix)
 
 jobs:
   Set-repos:
