@@ -4,7 +4,7 @@
       "name": "KERNEL",
       "repo": "https://android.googlesource.com/kernel/common",
       "branch": "android13-5.15-2024-05",
-      "device": "GKI"
+      "device": "gki"
     },
     "toolchains": [
       {
