@@ -584,7 +584,7 @@ jobs:
           
           # Pack the kernel
           ZIP_NAME="${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip"
-          zip -r5 "$ZIP_NAME" ANYKERNEL -x .git/*
+          zip -r5 "$ZIP_NAME" ANYKERNEL/* -x .git/*
   
           # Set the ZIP file path as an environment variable for the next step
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
