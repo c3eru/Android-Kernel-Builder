@@ -78,6 +78,11 @@ jobs:
       - name: "😄 Checkout"
         uses: actions/checkout@v4
 
+      - name: Setup timezone
+        uses: szenius/set-timezone@master
+        with:
+          timezoneLinux: "Asia/Jakarta"
+
       - name: "😆 Generate Matrix"
         id: generate-matrix
         run: |
@@ -605,6 +610,7 @@ jobs:
         run: |
           export KBUILD_BUILD_USER="Action"
           export KBUILD_BUILD_HOST="GitHub"
+          export TZ=Asia/Jakarta
         
           # Enable CCache
           export CCACHE_DIR="${{ github.workspace }}/.ccache"
@@ -638,7 +644,7 @@ jobs:
       - name: "💛 Upload Image"
         uses: actions/upload-artifact@v4
         with:
-          name: "${{ env.kernelDevice }}_${{ env.kernelName }}_${{ env.kernelBranch }}_${{ env.BUILD_TIME }}"
+          name: "${{ env.kernelDevice }}_${{ env.kernelName }}(Image)"
           path: ./${{ env.kernelDir }}/${{ env.OUT_DIR }}/arch/${{ env.ARCH }}/boot/Image
           if-no-files-found: ignore
           retention-days: 7
@@ -666,17 +672,13 @@ jobs:
           # Copy the kernel image to AnyKernel3
           cp "$KERNEL_IMAGE_PATH" AnyKernel3/Image
           
-          # Pack the kernel
-          ZIP_NAME="${{ env.kernelBranch }}_${{ env.BUILD_TIME }}.zip"
-          zip -r5 "$ZIP_NAME" AnyKernel3 -x .git/*
-  
           # Set the ZIP file path as an environment variable for the next step
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
         
       - name: "⬆️ Upload Kernel Artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.kernelBranch }}_${{ env.BUILD_TIME }}_Anykernel3.zip
-          path: ./${{ env.kernelDir }}/${{ env.kernelName }}/${{ env.ZIP_NAME }}
+          name: ${{ env.kernelDevice }}_${{ env.kernelName }}_${{ env.BUILD_TIME }}.zip
+          path: ./${{ env.kernelDir }}/${{ env.kernelName }}/AnyKernel3/*
           if-no-files-found: ignore
           retention-days: 7
